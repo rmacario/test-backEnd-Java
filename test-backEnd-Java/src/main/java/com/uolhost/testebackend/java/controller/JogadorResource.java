@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.uolhost.testebackend.java.exception.CodinomeIndisponivelException;
 import com.uolhost.testebackend.java.model.Jogador;
 import com.uolhost.testebackend.java.service.jogador.JogadorService;
 import com.uolhost.testebackend.java.service.jogador.dto.JogadorDTO;
@@ -42,7 +43,7 @@ public class JogadorResource {
 		}
 	}
 	
-	@RequestMapping(value = "/{id}", method = GET, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/{codigoJogador}", method = GET, produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> findById(@PathVariable long codigoJogador) {
 		try {
 			return ResponseEntity.ok(jogadorService.findById(codigoJogador));
@@ -66,8 +67,11 @@ public class JogadorResource {
 		try {
 			Jogador jogadorEntity = jogadorService.salvar(jogador);
 			
-			UriComponents uc = UriComponentsBuilder.fromPath("/jogador/{id}").buildAndExpand(jogadorEntity.getCodigoJogador());
-			return (ResponseEntity<?>) ResponseEntity.created(uc.toUri());
+			UriComponents uc = uri.path("/jogador/{id}").buildAndExpand(jogadorEntity.getCodigoJogador());
+			return ResponseEntity.created(uc.toUri()).body(jogadorEntity);
+			
+		} catch(CodinomeIndisponivelException e) {
+			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(e.getMessage());
 			
 		} catch(Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());

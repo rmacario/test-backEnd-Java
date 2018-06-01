@@ -1,6 +1,7 @@
 package com.uolhost.testebackend.java.service.jogador.dto;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import com.uolhost.testebackend.java.enums.EOrigemCodinome;
 
@@ -12,6 +13,7 @@ public class JogadorDTO {
 	@NotNull(message = "O campo email deve ser preenchido.")
 	private String email;
 	
+	@Pattern(regexp = "[0-9]{8,9}", message = "O campo telefone deve ser composto por ate 9 caracteres e todos numericos.")
 	private String telefone;
 	
 	@NotNull(message = "Necessario informar uma lista para este jogador.")
