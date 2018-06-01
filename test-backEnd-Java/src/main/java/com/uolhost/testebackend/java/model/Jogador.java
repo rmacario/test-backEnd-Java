@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.uolhost.testebackend.java.enums.EOrigemCodinome;
 
@@ -19,9 +20,11 @@ public class Jogador {
 	private Long codigoJogador;
 	
 	@Column
+	@NotNull
 	private String nome;
 	
 	@Column
+	@NotNull
 	private String email;
 	
 	@Column
@@ -43,6 +46,14 @@ public class Jogador {
 	}
 	
 
+	public Long getCodigoJogador() {
+		return codigoJogador;
+	}
+	
+	public void setCodigoJogador(Long codigoJogador) {
+		this.codigoJogador = codigoJogador;
+	}
+	
 	public String getNome() {
 		return nome;
 	}

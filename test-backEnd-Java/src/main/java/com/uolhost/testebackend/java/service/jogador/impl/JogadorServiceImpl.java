@@ -57,7 +57,7 @@ public class JogadorServiceImpl implements JogadorService {
 			return jogadorEntity;
 			
 		} else {
-			throw new CodinomeIndisponivelException("Nao ha codinomes disponiveis.");
+			throw new CodinomeIndisponivelException("Esta lista nao possui usuarios disponiveis.");
 		}
 	}
 
@@ -71,6 +71,11 @@ public class JogadorServiceImpl implements JogadorService {
 		}
 		
 		return jogadores;
+	}
+
+	@Override
+	public Jogador findById(Long codigoJogador) {
+		return jogadorDAO.findByCodigoJogador(codigoJogador);
 	}
 
 }

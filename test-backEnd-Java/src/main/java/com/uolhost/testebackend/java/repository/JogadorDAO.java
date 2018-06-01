@@ -10,5 +10,7 @@ import com.uolhost.testebackend.java.model.Jogador;
 public interface JogadorDAO extends CrudRepository<Jogador, Long>{
 	
     @Query(value = "SELECT codinome FROM Jogador")
-    public Set<String> findCodinomes();
+    Set<String> findCodinomes();
+    
+    Jogador findByCodigoJogador(Long codigoJogador);
 }

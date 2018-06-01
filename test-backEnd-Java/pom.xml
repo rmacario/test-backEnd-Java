@@ -6,15 +6,14 @@
 	<groupId>com.uolhost.testebackend</groupId>
 	<artifactId>test-backEnd-Java</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
 
 	<name>test-backEnd-Java</name>
 	<description>Teste para BackEnd para UOL HOST</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter</artifactId>
-		<version>1.5.13.RELEASE</version>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.5.RELEASE</version>
 	</parent>
 
 

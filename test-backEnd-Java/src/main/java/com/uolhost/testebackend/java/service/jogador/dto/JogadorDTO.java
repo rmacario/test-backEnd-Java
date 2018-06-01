@@ -1,12 +1,20 @@
 package com.uolhost.testebackend.java.service.jogador.dto;
 
+import javax.validation.constraints.NotNull;
+
 import com.uolhost.testebackend.java.enums.EOrigemCodinome;
 
 public class JogadorDTO {
 
+	@NotNull(message = "O campo nome deve ser preenchido.")
 	private String nome;
+	
+	@NotNull(message = "O campo email deve ser preenchido.")
 	private String email;
+	
 	private String telefone;
+	
+	@NotNull(message = "Necessario informar uma lista para este jogador.")
 	private EOrigemCodinome listaOrigem;
 	
 	

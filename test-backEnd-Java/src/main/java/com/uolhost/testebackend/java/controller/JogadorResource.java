@@ -2,14 +2,27 @@ package com.uolhost.testebackend.java.controller;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import com.uolhost.testebackend.java.model.Jogador;
 import com.uolhost.testebackend.java.service.jogador.JogadorService;
+import com.uolhost.testebackend.java.service.jogador.dto.JogadorDTO;
 
 @RestController
 @RequestMapping("/jogador")
@@ -29,11 +42,35 @@ public class JogadorResource {
 		}
 	}
 	
-	public ResponseEntity<?> save() {
+	@RequestMapping(value = "/{id}", method = GET, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> findById(@PathVariable long codigoJogador) {
 		try {
-			return null;
+			return ResponseEntity.ok(jogadorService.findById(codigoJogador));
+			
 		} catch(Exception e) {
-			return null;
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@RequestMapping(value = "", method = POST, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> save(@Valid @RequestBody JogadorDTO jogador, BindingResult bindingResult,
+			UriComponentsBuilder uri) {
+		
+		if (bindingResult.hasErrors()) {
+			List<String> errors = new ArrayList<String>();
+			bindingResult.getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
+			
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+		}
+		
+		try {
+			Jogador jogadorEntity = jogadorService.salvar(jogador);
+			
+			UriComponents uc = UriComponentsBuilder.fromPath("/jogador/{id}").buildAndExpand(jogadorEntity.getCodigoJogador());
+			return (ResponseEntity<?>) ResponseEntity.created(uc.toUri());
+			
+		} catch(Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
 	}
 	

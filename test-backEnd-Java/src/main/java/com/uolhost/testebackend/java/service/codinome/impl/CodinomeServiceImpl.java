@@ -52,7 +52,7 @@ public class CodinomeServiceImpl implements CodinomeService {
 	@Override
 	public Set<String> buscarCodinomes(EOrigemCodinome origem) throws JsonParseException, JsonMappingException, IOException {
 		
-		Set<String> codinomes = null;
+		Set<String> codinomes = new HashSet<String>();
 		
 		switch (origem) {
 			case LIGA_JUSTICA:

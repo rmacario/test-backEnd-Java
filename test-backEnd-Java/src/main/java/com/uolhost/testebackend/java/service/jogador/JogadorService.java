@@ -14,4 +14,6 @@ public interface JogadorService {
 	Jogador salvar(JogadorDTO jogador) throws JsonParseException, JsonMappingException, IOException, CodinomeIndisponivelException;
 	
 	List<Jogador> findAll();
+	
+	Jogador findById(Long codigoJogador);
 }
