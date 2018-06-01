@@ -1,4 +1,4 @@
-package com.uolhost.testebackend.java.service.codinome;
+package com.uolhost.testebackend.java.enums;
 
 public enum EOrigemCodinome {
 	

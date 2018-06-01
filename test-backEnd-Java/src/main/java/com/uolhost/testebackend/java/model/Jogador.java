@@ -2,8 +2,12 @@ package com.uolhost.testebackend.java.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.uolhost.testebackend.java.enums.EOrigemCodinome;
 
 @Entity
 @Table(name="TB_JOGADOR")
@@ -11,7 +15,8 @@ public class Jogador {
 
 	@Id
 	@Column
-	private long codigoJogador;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long codigoJogador;
 	
 	@Column
 	private String nome;
@@ -26,7 +31,16 @@ public class Jogador {
 	private String codinome;
 	
 	@Column
-	private String grupo;
+	private EOrigemCodinome listaOrigem;
+	
+	
+	public Jogador() {
+		super();
+	}
+	
+	public Jogador(String codinome) {
+		this.codinome = codinome;
+	}
 	
 
 	public String getNome() {
@@ -61,12 +75,11 @@ public class Jogador {
 		this.codinome = codinome;
 	}
 
-	public String getGrupo() {
-		return grupo;
+	public EOrigemCodinome getListaOrigem() {
+		return listaOrigem;
 	}
-
-	public void setGrupo(String grupo) {
-		this.grupo = grupo;
+	
+	public void setListaOrigem(EOrigemCodinome listaOrigem) {
+		this.listaOrigem = listaOrigem;
 	}
-
 }

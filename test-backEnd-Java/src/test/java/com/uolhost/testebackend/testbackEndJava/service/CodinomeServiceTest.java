@@ -11,16 +11,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import com.uolhost.testebackend.java.enums.EOrigemCodinome;
 import com.uolhost.testebackend.java.service.codinome.CodinomeService;
-import com.uolhost.testebackend.java.service.codinome.EOrigemCodinome;
 import com.uolhost.testebackend.java.service.codinome.impl.CodinomeServiceImpl;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CodinomeServiceTest {
+public class CodinomeServiceTest extends CodinomeResponseMock {
 
 	@Mock
 	private RestTemplate restTemplate;
@@ -62,56 +60,5 @@ public class CodinomeServiceTest {
 		} catch (Exception e) {
 			fail("Falha ao obter codinomes liga da justica");
 		}
-	}
-
-	
-	private ResponseEntity<String> getVingadoresPayload() {
-		final StringBuilder sb = new StringBuilder();
-		
-		sb.append("{");
-		sb.append("	\"vingadores\": [{");
-		sb.append("			\"codinome\": \"Hulk\"");
-		sb.append("		},");
-		sb.append("		{");
-		sb.append("			\"codinome\": \"Capitão América\"");
-		sb.append("		},");
-		sb.append("		{");
-		sb.append("			\"codinome\": \"Pantera Negra\"");
-		sb.append("		},");
-		sb.append("		{");
-		sb.append("			\"codinome\": \"Homem de Ferro\"");
-		sb.append("		},");
-		sb.append("		{");
-		sb.append("			\"codinome\": \"Thor\"");
-		sb.append("		},");
-		sb.append("		{");
-		sb.append("			\"codinome\": \"Feiticeira Escarlate\"");
-		sb.append("		},");
-		sb.append("		{");
-		sb.append("			\"codinome\": \"Visão\"");
-		sb.append("		}");
-		sb.append("	]");
-		sb.append("}");
-
-		ResponseEntity<String> responseEntity = new ResponseEntity<String>(sb.toString(), HttpStatus.OK);
-		return responseEntity;
-	}
-	
-	private ResponseEntity<String> getLigaDaJusticaPayload() {
-		final StringBuilder sb = new StringBuilder();
-
-		sb.append("<liga_da_justica>");
-		sb.append("  <codinomes>");
-		sb.append("    <codinome>Lanterna Verde</codinome>");
-		sb.append("    <codinome>Flash</codinome>");
-		sb.append("    <codinome>Aquaman</codinome>");
-		sb.append("    <codinome>Batman</codinome>");
-		sb.append("    <codinome>Superman</codinome>");
-		sb.append("    <codinome>Mulher Maravilha</codinome>");
-		sb.append("  </codinomes>");
-		sb.append("</liga_da_justica>");
-		
-		ResponseEntity<String> responseEntity = new ResponseEntity<String>(sb.toString(), HttpStatus.OK);
-		return responseEntity;
 	}
 }

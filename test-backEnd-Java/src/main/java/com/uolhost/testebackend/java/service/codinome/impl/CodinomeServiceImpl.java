@@ -15,8 +15,8 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.uolhost.testebackend.java.enums.EOrigemCodinome;
 import com.uolhost.testebackend.java.service.codinome.CodinomeService;
-import com.uolhost.testebackend.java.service.codinome.EOrigemCodinome;
 import com.uolhost.testebackend.java.service.codinome.dto.LigaDaJustica;
 import com.uolhost.testebackend.java.service.codinome.dto.VingadoresVO;
 
