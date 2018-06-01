@@ -1,6 +1,6 @@
 package com.uolhost.testebackend.testbackEndJava.service;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
@@ -113,6 +113,48 @@ public class JogadorServiceTest extends CodinomeResponseMock {
 			jogadorService.salvar(dto1);
 			
 			fail("Necessario que ocorra erro.");
+		
+		} catch(Exception e) {
+			assertTrue(e instanceof CodinomeIndisponivelException);
+		}
+	}
+	
+	@Test
+	public void deveRetornarUmRegistroFiltrandoPorId() {
+		final String ligaDaJusticaAdress = "";
+		final CodinomeService codinomeService = new CodinomeServiceImpl(restTemplate, ligaDaJusticaAdress, null);
+		final JogadorService jogadorService = new JogadorServiceImpl(jogadorDao, codinomeService);
+		
+		JogadorDTO dto = new JogadorDTO();
+		dto.setEmail("test@test.com");
+		dto.setNome("Teste Silva");
+		dto.setListaOrigem(EOrigemCodinome.LIGA_JUSTICA);
+		dto.setTelefone("11111111");
+		
+		try {
+			when(restTemplate.getForEntity(ligaDaJusticaAdress, String.class)).thenReturn(this.getLigaDaJusticaPayload());
+			
+			Jogador jogadorSalvo = jogadorService.salvar(dto);
+			Jogador jogador = jogadorService.findById(jogadorSalvo.getCodigoJogador());
+			
+			assertNotNull(jogador);
+		
+		} catch(Exception e) {
+			assertTrue(e instanceof CodinomeIndisponivelException);
+		}
+	}
+	
+	@Test
+	public void deveRetornarZeroRegistrosFiltrandoPorId() {
+		final String ligaDaJusticaAdress = "";
+		final CodinomeService codinomeService = new CodinomeServiceImpl(restTemplate, ligaDaJusticaAdress, null);
+		final JogadorService jogadorService = new JogadorServiceImpl(jogadorDao, codinomeService);
+
+		try {
+			when(restTemplate.getForEntity(ligaDaJusticaAdress, String.class)).thenReturn(this.getLigaDaJusticaPayload());
+			
+			Jogador jogador = jogadorService.findById(1l);
+			assertNull(jogador);
 		
 		} catch(Exception e) {
 			assertTrue(e instanceof CodinomeIndisponivelException);
