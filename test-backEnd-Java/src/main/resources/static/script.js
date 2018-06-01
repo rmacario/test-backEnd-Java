@@ -105,6 +105,11 @@ function listarJogadoresCadastrados(e) {
 		
 		jogador = JSON.parse(result);
 		
+		if (jogador.length == 0) {
+			alert("Nenhum resultado encontrado.");
+			return;
+		}
+		
 		for (var i = 0; i < jogador.length; i++) {
 			inserirLinhaDtTable(i+1, jogador[i]);
 		}
